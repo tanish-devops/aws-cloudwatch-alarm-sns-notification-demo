@@ -1,0 +1,13 @@
+Q-What happens the moment a threshold is crossed?
+A-Three things:
+The Alarm changes status to ALARM.
+It sends a JSON "payload" to your chosen SNS Topic.
+SNS "fans out" that message to your email, SMS, or even a Lambda function to auto-fix the issue.
+
+Q: Does CloudWatch send the email directly to my Gmail?
+A: Not quite! CloudWatch is the trigger, but Amazon SNS (Simple Notification Service) is the messenger. 
+CloudWatch tells SNS, "Hey, the alarm went off!" and SNS then sends the email to your inbox
+
+Q: Will I get spammed with 100 emails if my CPU stays high for an hour?
+A: No. By default, CloudWatch only sends a notification when the state changes (e.g., from OK to ALARM).
+It won't send another email until the alarm resets to OK and trips again.
